@@ -1,0 +1,36 @@
+name: "Monitoring"
+description: "Addon for monitoring hub and devices"
+version: "1.0.30"
+slug: "monitor_devices"
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+ports:
+  8000/tcp: 8000
+homeassistant_api: true
+options:
+  name_hub: ""
+  host_server: 0.0.0.0:5352
+  hostname_hub: https://myhub.ru/
+  wifi_device_entity: []
+  system_monitor_entity: []
+  zigbee_devices: []
+  id_in_system_monitoring: ""
+  token_ha: ""
+schema:
+  name_hub: str
+  host_server: str
+  hostname_hub: str
+  wifi_device_entity:
+    - "match()"
+  system_monitor_entity:
+    - "match()"
+  zigbee_devices:
+    - "match()"
+  id_in_system_monitoring: str
+  token_ha: str
+startup: system
