@@ -1,0 +1,12 @@
+{
+  "beer": true,
+  "wine": true,
+  "liquor": false,
+  "name": "world",
+  "year": 2017,
+  "id_in_system_monitoring": "",
+  "devices": [
+    "sensor.cpu_temperature",
+    "sensor.disk_use_percent"
+  ]
+}
