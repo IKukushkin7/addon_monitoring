@@ -13,15 +13,17 @@ import subprocess
 
 def get_state(bash_answer_ha_supervisor):
     data_json = json.loads(bash_answer_ha_supervisor)
-    # last_seen = data_json.get('attributes').get('last_seen')
-    last_seen = data_json.get('state')
-    return last_seen
+    if data_json.get('message') != "Entity not found.":
+        last_seen = data_json.get('state')
+        return last_seen
+    else:
+        return "not_found_entity"
 
 
 def parse_wifi_devices(lst_entity_wifi_devices):
     request_dict = {}
     for entity_wifi_device in lst_entity_wifi_devices:
-        answer_ha_supervisor = subprocess.check_output(['bash', 'zigbee_iot_collection.sh', f'{entity_wifi_device}'],
+        answer_ha_supervisor = subprocess.check_output(['bash', '/home/zigbee_iot_collection.sh', f'{entity_wifi_device}'],
                                                        universal_newlines=True)
         state_wifi_device = get_state(answer_ha_supervisor)
         request_dict.update({entity_wifi_device: state_wifi_device})

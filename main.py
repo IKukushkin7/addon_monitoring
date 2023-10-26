@@ -8,6 +8,16 @@ from reg_in_system import *
 from request_to_server import *
 
 
+# text = subprocess.check_output(['./req.sh', 'sensor.cpu_temperature'], universal_newlines=True)
+# print(type(text))
+#
+# text_json = json.loads(text)
+# print(type(text_json))
+# req = text_json['state']
+# print(req)
+
+
+# get lists zigbee devices
 def get_zigbee_devices():
     try:
         with open('/data/options.json', 'r') as f:
@@ -130,3 +140,27 @@ if __name__ == '__main__':
                 init_in_system(name_hub, host_hub, code_hub, host_server, token_ha)
         else:
             subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{set_id_hub(host_server, name_hub)}'])
+
+#######################################################################################################################
+# host_server = get_hostname_server()
+# zigbee_devices = get_zigbee_devices()
+# wifi_devices = get_wifi_devices()
+# sys_options = get_sys_options()
+# name_hub = ""  # get_name_hub
+# while True:
+#     print('ok its work')
+#     # data about zigbee devices
+#     dict_lastseen_zigbee_iot = parse_value_last_seen(zigbee_devices)
+#     # data system monitor hub
+#     dict_states_sys_options = parse_sys_options(sys_options)
+#     # data wifi devices
+#     dict_states_wifi_devices = parse_wifi_devices(wifi_devices)
+#
+#     ######
+#     subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{dict_lastseen_zigbee_iot}'])
+#     subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{dict_states_wifi_devices}'])
+#     subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{dict_states_sys_options}'])
+#     #####
+#     request_to_server = f'{{"name_hub": name_hub,"zigbee_device": f"{dict_lastseen_zigbee_iot}","wifi_device": f"{dict_states_wifi_devices}","system_options": f"{dict_states_sys_options}"}}'
+#     send_main_data(host_server, request_to_server)
+#     time.sleep(300)

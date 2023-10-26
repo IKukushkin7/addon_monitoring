@@ -4,9 +4,11 @@ import subprocess
 
 def get_state(bash_answer_ha_supervisor):
     data_json = json.loads(bash_answer_ha_supervisor)
-    # last_seen = data_json.get('attributes').get('last_seen')
-    last_seen = data_json.get('state')
-    return last_seen
+    if data_json.get('message') != "Entity not found.":
+        last_seen = data_json.get('state')
+        return last_seen
+    else:
+        return "not_found_entity"
 
 
 def parse_sys_options(lst_entity_sys_options):
