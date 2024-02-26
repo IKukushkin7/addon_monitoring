@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 # Install requirements for add-on
 RUN \
   apk add --no-cache \
-    python3 py3-pip
+    python3 py3-requests
 
 
 # Python 3 HTTP Server serves the current working dir
@@ -25,6 +25,6 @@ COPY data_collection_sys_options.py /home/
 RUN chmod a+x /run.sh
 RUN chmod a+x /home/zigbee_iot_collection.sh
 RUN chmod a+x /home/print_in_log_addon.sh
-RUN python3 -m pip install requests
+#RUN python3 -m pip install requests
 
 CMD [ "/run.sh" ]
