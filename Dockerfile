@@ -21,6 +21,8 @@ COPY request_to_server.py /home/
 COPY run.sh /
 COPY data_collection_wifi_iot.py /home/
 COPY data_collection_sys_options.py /home/
+COPY data_collection_yandex_station.py /home/
+
 
 RUN chmod a+x /run.sh
 RUN chmod a+x /home/zigbee_iot_collection.sh

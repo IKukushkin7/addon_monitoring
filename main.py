@@ -38,6 +38,17 @@ def get_token_ha():
         return "NONE"
 
 
+def get_yandex_station_entity():
+    try:
+        with open('/data/options.json', 'r') as f:
+            data = json.load(f)
+        return data.get('yandex_station_entity')
+    except Exception:
+        print('check addon configuration file')
+        return "NONE"
+
+
+
 def get_wifi_devices():
     try:
         with open('/data/options.json', 'r') as f:
@@ -104,11 +115,12 @@ if __name__ == '__main__':
     zigbee_devices = get_zigbee_devices()
     wifi_devices = get_wifi_devices()
     sys_options = get_sys_options()
+    yandex_stations = get_yandex_station_entity()    
     name_hub = get_name_hub()  # get_name_hub
     code_hub = get_hub_id()
     token_ha = get_token_ha()
     subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{zigbee_devices}'])
-    if host_server == "NONE" or host_hub == "NONE" or zigbee_devices == "NONE" or wifi_devices == "NONE" or sys_options == "NONE" or name_hub == "NONE" or code_hub == "NONE" or token_ha == "NONE":
+    if host_server == "NONE" or host_hub == "NONE" or zigbee_devices == "NONE" or wifi_devices == "NONE" or sys_options == "NONE" or name_hub == "NONE" or code_hub == "NONE" or token_ha == "NONE" or yandex_stations == "N0NE":
         subprocess.call(['bash', '/home/print_in_log_addon.sh', 'Check addon configuration file!!!'])
     else:
         if check_old_new_hub(code_hub):
@@ -122,16 +134,20 @@ if __name__ == '__main__':
                     dict_states_sys_options = parse_sys_options(sys_options)
                     # data wifi devices
                     dict_states_wifi_devices = parse_wifi_devices(wifi_devices)
+                    # data yandex_station
+                    dict_states_yandex_station = parse_yandex_station(yandex_stations)
 
                     ######
                     subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{dict_lastseen_zigbee_iot}'])
                     subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{dict_states_wifi_devices}'])
                     subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{dict_states_sys_options}'])
+                    subprocess.call(['bash', '/home/print_in_log_addon.sh', f'{dict_states_yandex_station}'])
                     #####
                     # request_to_server = f'{{"name_hub": "{name_hub}","zigbee_device": f"{dict_lastseen_zigbee_iot}","wifi_device": f"{dict_states_wifi_devices}","system_options": f"{dict_states_sys_options}"}}'
                     request_to_server = {"name_hub": f"{name_hub}", "zigbee_device": f'{dict_lastseen_zigbee_iot}',
                                          "wifi_device": f'{dict_states_wifi_devices}',
-                                         "system_options": f'{dict_states_sys_options}'}
+                                         "system_options": f'{dict_states_sys_options}',
+                                         "yandex_station": f'{dict_states_yandex_station}'}
                     send_main_data(host_server, request_to_server)
                     time.sleep(300)
             elif cheker is None:
