@@ -1,6 +1,6 @@
 name: "Monitoring"
 description: "Addon for monitoring hub and devices"
-version: "1.0.34"
+version: "1.0.34.1"
 slug: "monitor_devices"
 init: false
 arch:

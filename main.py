@@ -4,7 +4,9 @@ import time
 from data_collection_zigbee_iot import parse_value_last_seen
 from data_collection_wifi_iot import parse_wifi_devices
 from data_collection_sys_options import parse_sys_options
+
 from data_collection_yandex_station import parse_yandex_station
+
 from reg_in_system import *
 from request_to_server import *
 
